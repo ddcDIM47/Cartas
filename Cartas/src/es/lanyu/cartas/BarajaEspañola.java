@@ -9,14 +9,27 @@ public class BarajaEspañola extends Baraja{
 		super("Española", 40);
 	}
 	
-	@Override
-	public void generarBaraja() {
-		for (String palo : PALOS) {
-			super.crearCartasNumero(2, 7, palo);
-			for (String figura : fIGURAS) {
-				super.crearCartaFigura(figura, palo);
-			}
+	public void crearCartasNumero(int inicio, int fin, String palo) {
+		for(int i = inicio; i <= fin; i++) {
+			Carta carta = new Carta(palo, i);
+			super.getCartas().add(carta);
 		}
 	}
+	
+	
+	
+	@Override
+	public void generarCartas() {
+		for (String palo : PALOS) {
+			crearCartasNumero(1, 10, palo);
+			
+		}
+	}
+
+  @Override
+  public void addCard(CartaI carta) {
+    // TODO Auto-generated method stub
+    
+  }
 
 }

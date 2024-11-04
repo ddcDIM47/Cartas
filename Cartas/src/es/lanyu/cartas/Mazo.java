@@ -1,39 +1,58 @@
 package es.lanyu.cartas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Mazo {
+public abstract class Mazo implements MazoI{
 	
 	private String nombreMazo;
-	private List<Carta> cartas;
+	private List<CartaI> cartas;
 	
 	public Mazo(String nombre) {
 		this.nombreMazo = nombre;
-		this.cartas = new ArrayList<Carta>();
+		this.cartas = new ArrayList<CartaI>();
 	}
-		
 	
-	public void crearCartasNumero(int inicio, int fin, String palo) {
-		for(int i = inicio; i <= fin; i++) {
-			
-			Carta carta = new Carta(palo, String.valueOf(i));
-			cartas.add(carta);
+	//TODO: comprobar que lo hace si son iguales no el mismo
+	public CartaI robar (CartaI carta) {
+	    CartaI devolver = null;
+	    if (carta != null) {
+	      int i = cartas.indexOf(carta);
+	      if (i > -1) {
+	    	  devolver = cartas.get(i);
+	    	  cartas.remove(devolver);
+	      }
+	    }else {
+			devolver = cartas.getFirst();
+			cartas.remove(devolver);
+		}
+			return devolver;
+	}
+	
+	public boolean isIn(Carta carta) {
+		return cartas.contains(carta);
+	}
+	
+	public void imprimirCartas() {
+		for (CartaI carta : cartas) {
+			System.out.println(carta.toString());
 		}
 	}
 	
-	public void crearCartaFigura(String valor, String palo) {
-		
-		Carta figura = new Carta(palo, valor);
-		cartas.add(figura);
+	public void barajar() {
+		Collections.shuffle(cartas);
 	}
+	
+	
 	
 	public String getNombreMazo() {
 		return nombreMazo;
 	}
 	
-	public List<Carta> getCartas(){
+	public List<CartaI> getCartas(){
 		return cartas;
 	}
-	
+
+  
 }
